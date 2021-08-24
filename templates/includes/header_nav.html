@@ -1,0 +1,30 @@
+{% load static %}
+
+<div id="top_header"  class="container">
+    <div id="ToMainPageLink">
+        <a href="{% url 'index' %}"><i class="fas fa-home"></i><div class="ToMainPageLinkText">Главная</div></a>
+    </div>
+    <div id="login">
+        <div class="login_links">
+        {% if user.is_authenticated %}
+            <div class="dropdown shown">
+                    <a  class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>{{ user.first_name | default:'Пользователь' }}
+                    </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'auth:edit_personal' %}">Профиль</a>
+                        <a class="dropdown-item" href="{% url 'ordersapp:orders_list' %}">Заказы</a>
+                </div>
+            </div>
+                <a href="{% url 'auth:logout' %}?next={{ request.path }}">| Выйти</a>
+        {% else %}
+                {% include "includes/social_auth_icons.html" %}
+                <a href="{% url 'auth:login' %}?next={{ request.path }}">
+                    Войти
+                </a>
+                <a href="{% url 'auth:register' %}?next={{ request.path }}">| Регистрация</a>
+        {% endif %}
+        </div>
+    </div>
+</div>

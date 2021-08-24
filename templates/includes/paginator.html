@@ -1,0 +1,21 @@
+{% load static %}
+
+{% if 1 != page_obj.paginator.num_pages %}
+<div class="paginatorPlate">
+    {% if page_obj.has_previous %}
+        <a href="?page=1"><button class="paginatorPlateBegin"><<</button></a>
+        <a href="?page={{ page_obj.previous_page_number }}"><button class="paginatorPlatePrevious"><</button></a>
+    {% else %}
+        <button class="paginatorPlateDisableButton"><</button>
+        <button class="paginatorPlateDisableButton"><<</button>
+    {% endif %}
+    <div class="paginatorPlateMaxNumPages">Страница {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}</div>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"><button class="paginatorPlateNextButton">></button></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}"><button class="paginatorPlateEnd">>></button></a>
+    {% else %}
+        <button class="paginatorPlateDisableButton">></button>
+        <button class="paginatorPlateDisableButton">>></button>
+    {% endif %}
+</div>
+{% endif %}

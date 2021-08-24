@@ -1,0 +1,18 @@
+{% load static %}
+
+<ul id="menu" class="list-group col-md-3">
+    {% for name, link in link_dict.items %}
+        {% if link.argument %}
+            <a href="{% url link.link link.argument%}">
+        {% else %}
+            <a href="{% url link.link%}">
+        {% endif %}
+        {% url link.link link.argument as link_url%}
+        {% if not link_url %} {% url link.link as link_url%} {% endif %}
+        {% if request.get_full_path == link_url %}
+        <li class="list-group-item active">{{ name }}</li></a>
+        {% else %}
+        <li class="list-group-item">{{ name }}</li></a>
+        {% endif %}
+    {% endfor %}
+</ul>
